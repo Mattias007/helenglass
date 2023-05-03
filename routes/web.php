@@ -15,12 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('avaleht');
+})->name('avaleht');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/kategooria', function () {
+    return view('kategooria');
+})->middleware(['auth', 'verified'])->name('kategooria');
+
+
+Route::get('/galerii', function () {
+    return view('galerii');
+})->middleware(['auth', 'verified'])->name('galerii');
+
+Route::get('/kontakt', function () {
+    return view('kontakt');
+})->middleware(['auth', 'verified'])->name('kontakt');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
