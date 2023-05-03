@@ -26,6 +26,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/category/create', function () {
+        return view('admin/category-create');
+    })->middleware(['auth', 'verified'])->name('category-create');
+    
+    Route::get('/image/add', function () {
+        return view('admin/image-add');
+    })->middleware(['auth', 'verified'])->name('image-add');
+    
+    Route::get('/gallery/add', function () {
+        return view('admin/gallery-add');
+    })->middleware(['auth', 'verified'])->name('gallery-add');
 });
 
 require __DIR__.'/auth.php';
