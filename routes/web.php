@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +17,33 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('avaleht');
-})->name('avaleht');
+})->name('homepage');
 
-Route::get('/kategooria', function () {
-    return view('kategooria');
-})->middleware(['auth', 'verified'])->name('kategooria');
+Route::get('/category', function () {
+    $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(5);
+    $amount = DB::table('gallery')->get();
+    $total = $amount->count();
+    return view('kategooria', [
+        'categories' => $categories,
+        'total' => $total
+    ]);
+})->name('category');
 
 
-Route::get('/galerii', function () {
-    return view('galerii');
-})->middleware(['auth', 'verified'])->name('galerii');
+Route::get('/gallery/{id}', function ($id) {
+    $images = DB::table('gallery')->where('state', 'image')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(5);
+    $amount = DB::table('gallery')->where('category_id', $id)->get();
+    $total = $amount->count();
+    return view('galerii', [
+        'images' => $images,
+        'total' => $total,
+        'id' => $id
+    ]);
+})->name('gallery');
 
-Route::get('/kontakt', function () {
+Route::get('/contact', function () {
     return view('kontakt');
-})->middleware(['auth', 'verified'])->name('kontakt');
+})->name('contact');
 
 
 Route::middleware('auth')->group(function () {
@@ -40,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/category/create', function () {
         return view('admin/category-create');
     })->middleware(['auth', 'verified'])->name('category-create');
+    Route::post('/category/create/post', [AdminController::class, 'createCategory'])->name('admin.category.create');
     
     Route::get('/image/add', function () {
         return view('admin/image-add');

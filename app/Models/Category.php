@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = 'category';
+    protected $table = 'gallery';
     protected $fillable = [
-        'title', 
+        'state', 
+        'category_id', 
         'image', 
+        'title', 
         'updated_at', 
         'created_at'
     ];

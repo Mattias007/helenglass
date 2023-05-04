@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        @if (Auth::user())
+                @if (Auth::user())
                     <div class="p-4 mb-16 bg-[#414141] flex items-center rounded text-[#FEE2C5]">
                         <a href="/category/create" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">add</span>Lisa uus kategooria</a>
                     </div>
@@ -11,7 +11,6 @@
                     <div class="flex flex-col w-96 h-full p-4 rounded-xl text-center bg-[#414141] border-2 text-[#FEE2C5]">
                         <div class="flex justify-center pb-4"><img class="h-80 w-80 rounded-xl" src="{{ asset('storage/images') . '/' . $category->image}}" alt=""></div>
                         <div class="text-4xl pb-2"><h1>{{ $category->title }}</h1></div>
-                        <div class="w-full min-h-24 flex justify-center text-2xl pb-4"><h1>{{ $category->description }}</h1></div>
                         <div class="h-full"></div>
                         <div class=" flex self-center ">
                             <a href="/gallery/{{ $category->id }}" class=" flex self-center text-[#FEE2C5] text-2xl bg-[#313131] w-fit px-8 py-3 rounded-xl border-2">
