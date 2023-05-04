@@ -1,29 +1,31 @@
 <x-app-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
                 @if (Auth::user())
-                    <div class="p-4 mb-16 bg-[#414141] flex items-center rounded text-[#FEE2C5]">
+                    <div class="p-4 mb-2 flex items-center rounded text-black border-2 border-gray-500 w-full">
                         <a href="/category/create" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">add</span>Lisa uus kategooria</a>
                     </div>
                 @endif
-            <div class="w-full h-full flex flex-wrap justify-center gap-8">
+            <div class="w-full h-full grid grid-cols-3 gap-2">
                 @foreach ($categories as $category)
-                    <div class="flex flex-col w-96 h-full p-4 rounded-xl text-center bg-[#414141] border-2 text-[#FEE2C5]">
-                        <div class="flex justify-center pb-4"><img class="h-80 w-80 rounded-xl" src="{{ asset('storage/images') . '/' . $category->image}}" alt=""></div>
-                        <div class="text-4xl pb-2"><h1>{{ $category->title }}</h1></div>
-                        <div class="h-full"></div>
-                        <div class=" flex self-center ">
-                            <a href="/gallery/{{ $category->id }}" class=" flex self-center text-[#FEE2C5] text-2xl bg-[#313131] w-fit px-8 py-3 rounded-xl border-2">
-                                <h1>Ava Galerii</h1>
-                            </a>
-                        </div>
-                        @if (Auth::user())
-                            <div class="mt-4 text-[#FEE2C5] flex bottom-2 justify-center w-full">
-                                <a href="/category/edit/{{ $category->id }}" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">edit</span>Muuda</a>
-                                <div class="w-[3px] h-6 bg-[#575757] mx-4 rounded-lg"></div>
-                                <a href="/category/delete/{{ $category->id }}" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">delete</span> Kustuta</a>
+                    <div class="flex flex-col w-3/3 h-full rounded-md text-center border-2 border-gray-500 text-black">
+                        <div class="flex justify-center p-2 w-full "><img class="h-80 w-full rounded-t-md object-cover" src="{{ asset('storage/images') . '/' . $category->image}}" alt="{{ $category->title_et }} cover image"></div>
+                        <div class="p-8  flex flex-col">
+                            <div class="text-4xl pb-4"><h1>{{ $category->title_et }}</h1></div>
+                            <div class="h-full"></div>
+                            <div class=" flex self-center ">
+                                <a href="/gallery/{{ $category->id }}" class=" flex self-center text-black text-2xl w-fit px-8 py-3 rounded-md border-2 border-gray-500">
+                                    <h1>Ava Galerii</h1>
+                                </a>
                             </div>
-                        @endif
+                            @if (Auth::user())
+                                <div class="mt-4 text-black flex bottom-2 justify-center w-full">
+                                    <a href="/category/edit/{{ $category->id }}" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">edit</span>Muuda</a>
+                                    <div class="w-[3px] h-6 bg-[#575757] mx-4 rounded-lg"></div>
+                                    <a href="/category/delete/{{ $category->id }}" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">delete</span> Kustuta</a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 @endforeach
             </div>
