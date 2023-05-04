@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,16 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
+    App::setLocale('et');
     return view('avaleht');
 })->name('homepage');
+
+
+Route::get('/en', function () {
+    App::setLocale('en');
+    return view('avaleht');
+})->name('homepage');
+
 
 Route::get('/category', function () {
     $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(6);
