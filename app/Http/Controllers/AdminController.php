@@ -19,7 +19,8 @@ class AdminController extends Controller
     public function createCategory(Request $request, )
     {
         $item = new Category;
-        $item->title = $request->input('title');
+        $item->title_et = $request->input('title_et');
+        $item->title_en = $request->input('title_en');
         $item->state = "category";
         $item->category_id = "";
         if ($request->hasFile('image')) {
@@ -29,6 +30,6 @@ class AdminController extends Controller
             $item->image = $filename;
         }
         $item->save();
-        return redirect()->route('kategooria')->with('success', 'Data updated successfully.');
+        return redirect()->route('category')->with('success', 'Data updated successfully.');
     }
 }

@@ -2,7 +2,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             @if (Auth::user())
-                <div class="p-4 mb-16 bg-[#414141] flex items-center rounded text-[#FEE2C5]">
+                <div class="p-4 flex items-center rounded text-black border-2 border-gray-500">
+                    <a href="/category" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">arrow_back_ios</span>Kategooriad</a>
+                    <div class="w-[3px] h-6 bg-[#575757] mx-4 rounded-lg"></div>
                     <a href="/gallery/{{ $id }}/add" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">add</span>Lisa uued pildid</a>
                 </div>
             @endif

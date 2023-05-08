@@ -12,7 +12,8 @@ class Category extends Model
         'state', 
         'category_id', 
         'image', 
-        'title', 
+        'title_et', 
+        'title_en', 
         'updated_at', 
         'created_at'
     ];

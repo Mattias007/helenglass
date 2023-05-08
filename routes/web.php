@@ -29,7 +29,7 @@ Route::get('/en', function () {
 
 
 Route::get('/category', function () {
-    $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(5);
+    $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(6);
     $amount = DB::table('gallery')->get();
     $total = $amount->count();
     return view('kategooria', [
@@ -69,9 +69,21 @@ Route::middleware('auth')->group(function () {
         return view('admin/image-add');
     })->middleware(['auth', 'verified'])->name('image-add');
     
-    Route::get('/gallery/add', function () {
-        return view('admin/gallery-add');
-    })->middleware(['auth', 'verified'])->name('gallery-add');
+    Route::get('/gallery/{id}/add', function ($id) {
+        return view('admin/gallery-add', [
+            'id' => $id,
+        ]);
+    })->name('gallery.add');
+    Route::post('/gallery/add/post', [AdminController::class, 'addGallery'])->name('admin.gallery.add');
+    
+    Route::get('/gallery/delete/{id}', function ($id) {
+        $info = DB::table('gallery')->where('state', 'image')->where('id', $id)->get()[0];
+        return view('admin/gallery-delete', [
+            'id' => $id,
+            'info' => $info
+        ]);
+    })->name('gallery.delete');
+    Route::post('/gallery/delete/post', [AdminController::class, 'deleteGallery'])->name('admin.gallery.delete');
 });
 
 require __DIR__.'/auth.php';
