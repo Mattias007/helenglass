@@ -29,20 +29,22 @@ Route::get('/en', function () {
 
 
 Route::get('/category', function () {
+    App::setLocale('et');
     $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(6);
     $amount = DB::table('gallery')->get();
     $total = $amount->count();
-    return view('kategooria_et', [
+    return view('kategooria', [
         'categories' => $categories,
         'total' => $total
     ]);
 })->name('category');
 
 Route::get('/en/category', function () {
+    App::setLocale('en');
     $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(6);
     $amount = DB::table('gallery')->get();
     $total = $amount->count();
-    return view('kategooria_en', [
+    return view('kategooria', [
         'categories' => $categories,
         'total' => $total
     ]);
@@ -50,17 +52,40 @@ Route::get('/en/category', function () {
 
 
 Route::get('/gallery/{id}', function ($id) {
-    $images = DB::table('gallery')->where('state', 'image')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(5);
+    App::setLocale('et');
+    $images = DB::table('gallery')->where('state', 'image')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(9);
+    $info = DB::table('gallery')->where('id', $id)->get()[0];
     $amount = DB::table('gallery')->where('category_id', $id)->get();
     $total = $amount->count();
     return view('galerii', [
         'images' => $images,
         'total' => $total,
-        'id' => $id
+        'id' => $id,
+        'info' => $info
+    ]);
+})->name('gallery');
+
+Route::get('/en/gallery/{id}', function ($id) {
+    App::setLocale('en');
+    $images = DB::table('gallery')->where('state', 'image')->where('category_id', $id)->orderBy('id', 'DESC')->paginate(9);
+    $info = DB::table('gallery')->where('id', $id)->get()[0];
+    $amount = DB::table('gallery')->where('category_id', $id)->get();
+    $total = $amount->count();
+    return view('galerii', [
+        'images' => $images,
+        'total' => $total,
+        'id' => $id,
+        'info' => $info
     ]);
 })->name('gallery');
 
 Route::get('/contact', function () {
+    App::setLocale('et');
+    return view('kontakt');
+})->name('contact');
+
+Route::get('/en/contact', function () {
+    App::setLocale('en');
     return view('kontakt');
 })->name('contact');
 
@@ -74,6 +99,23 @@ Route::middleware('auth')->group(function () {
         return view('admin/category-create');
     })->middleware(['auth', 'verified'])->name('category-create');
     Route::post('/category/create/post', [AdminController::class, 'createCategory'])->name('admin.category.create');
+
+    Route::get('/category/edit/{id}', function ($id) {
+        $info = DB::table('gallery')->where('id', $id)->get()[0];
+        return view('admin/category-edit', [
+            'info' => $info,
+            'id' => $id,
+        ]);
+    })->name('category.edit');
+    Route::post('/category/edit/post', [AdminController::class, 'updateCategory'])->name('admin.category.update');
+
+    Route::get('/category/delete/{id}', function ($id) {
+        $info = DB::table('gallery')->where('id', $id)->get()[0];
+        return view('admin/category-delete', [
+            'info' => $info
+        ]);
+    })->name('category.delete');
+    Route::post('/category/delete/post', [AdminController::class, 'deleteCategory'])->name('admin.category.delete');
     
     Route::get('/image/add', function () {
         return view('admin/image-add');
@@ -81,7 +123,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/gallery/{id}/add', function ($id) {
         return view('admin/gallery-add', [
-            'id' => $id,
+            'id' => $id
         ]);
     })->name('gallery.add');
     Route::post('/gallery/add/post', [AdminController::class, 'addGallery'])->name('admin.gallery.add');

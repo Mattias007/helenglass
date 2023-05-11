@@ -15,12 +15,26 @@ var_dump(explode('/', $_SERVER['PATH_INFO']))
                         <a href="/category/create" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">add</span>Lisa uus kategooria</a>
                     </div>
                 @endif
-            <div class="w-full h-full grid grid-cols-3 gap-2">
+
+
+                <?php
+                // $_SERVER['REQUEST_URI']
+                echo ('/en' . $_SERVER['REQUEST_URI']);
+                ?>
+            <div class="w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
                 @foreach ($categories as $category)
                     <div class="flex flex-col w-3/3 h-full rounded-md text-center border-2 border-gray-500 text-black">
                         <div class="flex justify-center p-2 w-full "><img class="h-80 w-full rounded-t-md object-cover" src="{{ asset('storage/images') . '/' . $category->image}}" alt="{{ $category->title_et }} cover image"></div>
                         <div class="p-8  flex flex-col">
-                            <div class="text-4xl pb-4"><h1>{{ $category->title_et }}</h1></div>
+                            <div class="text-4xl pb-4">
+                                <h1>
+                                    @if (__('messages.category_title') == '_et')
+                                        {{ $category->title_et }}
+                                    @elseif (__('messages.category_title') == '_en')
+                                        {{ $category->title_en }}
+                                    @endif
+                                </h1>
+                            </div>
                             <div class="h-full"></div>
                             <div class=" flex self-center ">
                                 <a href="/gallery/{{ $category->id }}" class=" flex self-center text-black text-2xl w-fit px-8 py-3 rounded-md border-2 border-gray-500">
@@ -38,19 +52,19 @@ var_dump(explode('/', $_SERVER['PATH_INFO']))
                     </div>
                 @endforeach
             </div>
-            @if ($total > 9)
+            @if ($total > 6)
             <div class=" overflow-hidden shadow-sm sm: flex justify-center items-center">
                 <div class="p-6  flex flex-col lg:flex-row gap-4 relative">
                         <div class="w-52 mx-auto">
                             <div class="flex flex-col items-center">
                                 <div class="inline-flex mt-2 xs:mt-0 gap-2">
                                     <!-- Buttons -->
-                                    <a href="{{ $categories->previousPageUrl() }}" class="inline-flex items-center px-4 py-2 text-sm font-medium  bg-[#414141] text-[#FEE2C5] rounded-l-md transition-all delay-25 ease-linear">
+                                    <a href="{{ $categories->previousPageUrl() }}" class="inline-flex items-center px-4 py-2 text-sm font-medium border-2 border-gray-500 rounded-l-md transition-all delay-25 ease-linear">
                                         <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
                                         Prev
                                     </a>
                         
-                                    <a href="{{ $categories->nextPageUrl() }}" disabled class="inline-flex items-center px-4 py-2 text-sm font-medium  bg-[#414141] text-[#FEE2C5] rounded-r-md transition-all delay-25 ease-linear">
+                                    <a href="{{ $categories->nextPageUrl() }}" disabled class="inline-flex items-center px-4 py-2 text-sm font-medium border-2 border-gray-500 rounded-r-md transition-all delay-25 ease-linear">
                                         Next
                                         <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                     </a>

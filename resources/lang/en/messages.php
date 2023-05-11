@@ -19,5 +19,8 @@ return [
     
     Seeing the birth of glass from fire and sand, believing in yourself and bounding the borders has given me
     
-    the confidence that I can do my ideas.'
+    the confidence that I can do my ideas.',
+    'category_title' => '_en',
+    'contact_call' => 'Call',
+    'contact_mail' => 'Send an E-mail'
 ];

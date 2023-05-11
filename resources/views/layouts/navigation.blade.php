@@ -60,7 +60,7 @@
                 @endif
 
                 <div class="flex items-center">
-                    <div class="flex items-center gap-4 border-2 border-blue-600 bg-blue-400 text-white font-bold rounded-full px-8 py-2 h-fit ">
+                    <div class="flex items-center gap-4 border-2 border-blue-700 bg-blue-200 rounded-full px-8 py-2 h-fit ">
                         <a href="/">ET</a>
                         <a href="/en">EN</a>
                     </div>

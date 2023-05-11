@@ -12,11 +12,19 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Tilt+Warp&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link rel="stylesheet" href="{{ asset('imageModal.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01" class="h-64">
+            <div id="caption"></div>
+        </div>
+
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -34,5 +42,6 @@
                 {{ $slot }}
             </main>
         </div>
+        <script src="{{ asset('imageModal.js') }}"></script>
     </body>
 </html>

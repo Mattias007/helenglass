@@ -15,6 +15,11 @@ var_dump(explode('/', $_SERVER['PATH_INFO']))
                         <a href="/category/create" class="h-full w-fit flex items-center"><span class="material-symbols-outlined mr-2">add</span>Lisa uus kategooria</a>
                     </div>
                 @endif
+
+                <?php
+                // $_SERVER['REQUEST_URI']
+                echo (str_replace('/en', '', $_SERVER['REQUEST_URI']));
+                ?>
             <div class="w-full h-full grid grid-cols-3 gap-2">
                 @foreach ($categories as $category)
                     <div class="flex flex-col w-3/3 h-full rounded-md text-center border-2 border-gray-500 text-black">
