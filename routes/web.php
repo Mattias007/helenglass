@@ -23,7 +23,17 @@ Route::get('/category', function () {
     $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(6);
     $amount = DB::table('gallery')->get();
     $total = $amount->count();
-    return view('kategooria', [
+    return view('kategooria_et', [
+        'categories' => $categories,
+        'total' => $total
+    ]);
+})->name('category');
+
+Route::get('/en/category', function () {
+    $categories = DB::table('gallery')->where('state', 'category')->orderBy('id', 'DESC')->paginate(6);
+    $amount = DB::table('gallery')->get();
+    $total = $amount->count();
+    return view('kategooria_en', [
         'categories' => $categories,
         'total' => $total
     ]);

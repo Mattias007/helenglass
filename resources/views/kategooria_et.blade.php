@@ -1,3 +1,12 @@
+<!-- <?php
+function p($arr){
+    return '<pre>'.print_r($arr,true).'</pre>';
+}
+
+// var_dump($_SERVER['PATH_INFO']);
+var_dump(explode('/', $_SERVER['PATH_INFO']))
+// p($_SERVER);
+?> -->
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
